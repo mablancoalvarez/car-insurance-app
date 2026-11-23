@@ -1,14 +1,16 @@
 import { createContext, useState } from 'react';
 
-export const FiltersContext = createContext();
+export const INITIAL_FILTERS = {
+  finalPrice: 1,
+  modality: 'all',
+  minPrice: '',
+  maxPrice: '',
+};
+
+export const FiltersContext = createContext(null);
 
 export const FiltersProvider = ({ children }) => {
-  const [filters, setFilters] = useState({
-    finalPrice: 1,
-    modality: 'all',
-    minPrice: '',
-    maxPrice: '',
-  });
+  const [filters, setFilters] = useState(INITIAL_FILTERS);
   const [sort, setSort] = useState('asc');
 
   return (

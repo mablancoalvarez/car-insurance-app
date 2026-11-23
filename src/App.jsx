@@ -4,9 +4,10 @@ import './App.css';
 import MainContent from './screens/UserCustomSearch/MainContent.jsx';
 
 function App() {
-  const { data: products } = useFetchData('/db.json');
+  const { data: products, error } = useFetchData('/db.json');
 
-  if (!products) return 'Loading';
+  if (error) return <p>{error}</p>;
+  if (!products) return <p>Loading</p>;
   return (
     <div className="container">
       <Filters />

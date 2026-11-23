@@ -6,11 +6,7 @@ export const formatNumber = (number) => {
 };
 
 export const sortProductsByPrice = (products, sort) => {
-  return products?.sort((a, b) => {
-    if (sort === 'asc') {
-      return a.price - b.price;
-    } else {
-      return b.price - a.price;
-    }
-  });
+  return [...(products ?? [])].sort((a, b) =>
+    sort === 'asc' ? a.price - b.price : b.price - a.price
+  );
 };

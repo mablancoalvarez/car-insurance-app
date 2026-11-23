@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 import React from 'react';
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react';
 import { FiltersContext } from '../../context/DataContext';
 import { useFilterData } from '../../hooks/useFilterData';
 

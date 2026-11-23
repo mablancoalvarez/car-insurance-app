@@ -1,6 +1,7 @@
 import { useId } from 'react';
 import { useFilterData } from '../../hooks/useFilterData.jsx';
 import Switch from '../../components/Ui/Switch.jsx';
+import { INITIAL_FILTERS } from '../../context/DataContext.jsx';
 
 const Filters = () => {
   const { filters, setFilters } = useFilterData();
@@ -10,22 +11,18 @@ const Filters = () => {
   const idFinalPrice = useId();
   const idModality = useId();
 
-  const handleFilter = (e) => {
-    const checked = e.target.checked ? 1 : 0;
+  const handleFilter = (event) => {
+    const { name, type, value, checked } = event.target;
+    const nextValue = type === 'checkbox' ? (checked ? 1 : 0) : value;
+
     setFilters((prevState) => ({
       ...prevState,
-      [e.target.name]: checked || e.target.value,
+      [name]: nextValue,
     }));
   };
 
   const onClearFilters = () => {
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      finalPrice: 0,
-      modality: 'all',
-      minPrice: '',
-      maxPrice: '',
-    }));
+    setFilters({ ...INITIAL_FILTERS });
   };
 
   return (
@@ -57,7 +54,7 @@ const Filters = () => {
           >
             <option value="all">--Please choose an option--</option>
             <option value="with-excess">With excess</option>
-            <option value="without-excess">Withouth excess</option>
+            <option value="without-excess">Without excess</option>
           </select>
         </div>
         <div className="filters-price">
@@ -68,6 +65,7 @@ const Filters = () => {
                 Minimum Price
               </label>
               <input
+                id={idMinPrice}
                 name="minPrice"
                 type="number"
                 value={filters.minPrice}
@@ -79,6 +77,7 @@ const Filters = () => {
                 Maximum Price
               </label>
               <input
+                id={idMaxPrice}
                 name="maxPrice"
                 type="number"
                 value={filters.maxPrice}
