@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 
-export const useFetchData = (url) => {
-  const [data, setData] = useState(null);
+export const useFetchData = <T,>(url: string) => {
+  const [data, setData] = useState<T | null>(null);
   const [isPending, setIsPending] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -16,13 +16,21 @@ export const useFetchData = (url) => {
         if (!response.ok) {
           throw new Error(response.statusText || 'Could not fetch data');
         }
-        const json = await response.json();
+        // response.json() is untyped at the network boundary.
+        const json = (await response.json()) as T;
         if (ignore) return;
         setData(json);
         setError(null);
-      } catch (fetchError) {
-        if (fetchError.name === 'AbortError' || ignore) return;
-        setError(fetchError.message || 'Could not fetch data');
+      } catch (fetchError: unknown) {
+        if (ignore) return;
+        if (fetchError instanceof Error && fetchError.name === 'AbortError') {
+          return;
+        }
+        const message =
+          fetchError instanceof Error && fetchError.message
+            ? fetchError.message
+            : 'Could not fetch data';
+        setError(message);
       } finally {
         if (!ignore) setIsPending(false);
       }
@@ -34,5 +42,6 @@ export const useFetchData = (url) => {
       controller.abort();
     };
   }, [url]);
+
   return { data, isPending, error };
 };

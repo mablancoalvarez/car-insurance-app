@@ -1,20 +1,23 @@
 /**
  * @jest-environment jsdom
  */
-import React from 'react';
 import { renderHook } from '@testing-library/react';
+import type { ReactNode } from 'react';
 import { FiltersContext } from '../../context/DataContext';
 import { useFilterData } from '../../hooks/useFilterData';
+import type { FiltersContextValue } from '../../types';
 
 describe('useFilterData hook', () => {
   it('should filter products', () => {
-    const mockedFilters = {
+    const mockedFilters: FiltersContextValue = {
       filters: { minPrice: 0, finalPrice: 1, modality: 'all', maxPrice: 100 },
       setFilters: jest.fn(),
+      sort: 'asc',
+      setSort: jest.fn(),
     };
 
     const { result } = renderHook(() => useFilterData(), {
-      wrapper: ({ children }) => (
+      wrapper: ({ children }: { children: ReactNode }) => (
         <FiltersContext.Provider value={mockedFilters}>
           {children}
         </FiltersContext.Provider>

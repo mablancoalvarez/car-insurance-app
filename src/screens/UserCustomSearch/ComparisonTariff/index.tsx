@@ -2,13 +2,16 @@ import { useState } from 'react';
 import { diffTariffs } from './helpers';
 import TariffDetails from './TariffDetails';
 import Switch from '../../../components/Ui/Switch';
+import type { Product } from '../../../types';
 
-const ComparisonTariff = ({ products }) => {
+const ComparisonTariff = ({ products }: { products: Product[] }) => {
   const [showDifferences, setShowDifferences] = useState(false);
 
   if (!products || products.length < 2) return null;
 
   const [tariff1, tariff2] = products;
+  if (!tariff1 || !tariff2) return null;
+
   const [differencesTariff1, differencesTariff2] = diffTariffs(
     tariff1,
     tariff2

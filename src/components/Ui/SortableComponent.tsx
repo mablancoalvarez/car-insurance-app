@@ -1,4 +1,4 @@
-import { useFilterData } from '../../hooks/useFilterData.jsx';
+import { useFilterData } from '../../hooks/useFilterData';
 
 const SortableComponent = () => {
   const { sort, setSort } = useFilterData();
