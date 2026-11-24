@@ -29,7 +29,7 @@ const ComparisonTariff = ({ products }: { products: Product[] }) => {
           checked={showDifferences}
         />
         <label className="comparison-tariffs-action-label" htmlFor="checkbox">
-          Show only differences
+          Solo diferencias
         </label>
       </div>
       <div className="comparison-tariffs">
