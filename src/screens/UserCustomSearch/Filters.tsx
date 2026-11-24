@@ -1,7 +1,11 @@
-import { useId } from 'react';
-import { useFilterData } from '../../hooks/useFilterData.jsx';
-import Switch from '../../components/Ui/Switch.jsx';
-import { INITIAL_FILTERS } from '../../context/DataContext.jsx';
+import { useId, type ChangeEvent } from 'react';
+import { useFilterData } from '../../hooks/useFilterData';
+import Switch from '../../components/Ui/Switch';
+import { INITIAL_FILTERS } from '../../context/DataContext';
+import type { ModalityFilter } from '../../types';
+
+const isModality = (value: string): value is ModalityFilter =>
+  value === 'all' || value === 'with-excess' || value === 'without-excess';
 
 const Filters = () => {
   const { filters, setFilters } = useFilterData();
@@ -11,14 +15,30 @@ const Filters = () => {
   const idFinalPrice = useId();
   const idModality = useId();
 
-  const handleFilter = (event) => {
-    const { name, type, value, checked } = event.target;
-    const nextValue = type === 'checkbox' ? (checked ? 1 : 0) : value;
+  const handleFilter = (
+    event: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = event.target;
 
-    setFilters((prevState) => ({
-      ...prevState,
-      [name]: nextValue,
-    }));
+    setFilters((prevState) => {
+      if (name === 'finalPrice') {
+        const checked =
+          event.target instanceof HTMLInputElement
+            ? event.target.checked
+            : false;
+        return { ...prevState, finalPrice: checked ? 1 : 0 };
+      }
+      if (name === 'modality' && isModality(value)) {
+        return { ...prevState, modality: value };
+      }
+      if (name === 'minPrice') {
+        return { ...prevState, minPrice: value };
+      }
+      if (name === 'maxPrice') {
+        return { ...prevState, maxPrice: value };
+      }
+      return prevState;
+    });
   };
 
   const onClearFilters = () => {

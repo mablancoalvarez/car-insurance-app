@@ -1,5 +1,11 @@
 import { useContext } from 'react';
 import { FiltersContext } from '../context/DataContext';
+import type { FilterableProduct } from '../types';
+
+const toBound = (value: string | number): number | null => {
+  if (value === '') return null;
+  return Number(value);
+};
 
 export const useFilterData = () => {
   const context = useContext(FiltersContext);
@@ -8,12 +14,17 @@ export const useFilterData = () => {
   }
   const { filters, setFilters, sort, setSort } = context;
 
-  const filterProducts = (products) => {
-    return products?.filter((product) => {
+  const filterProducts = <T extends FilterableProduct>(
+    products: readonly T[] | null | undefined
+  ): T[] => {
+    if (!products) return [];
+    return products.filter((product) => {
+      const minBound = toBound(filters.minPrice);
+      const maxBound = toBound(filters.maxPrice);
       const minPriceCondition =
-        filters.minPrice === '' || product.price / 100 >= filters.minPrice;
+        minBound === null || product.price / 100 >= minBound;
       const maxPriceCondition =
-        filters.maxPrice === '' || product.price / 100 <= filters.maxPrice;
+        maxBound === null || product.price / 100 <= maxBound;
       const finalPriceCondition =
         filters.finalPrice === 1
           ? product.final_price === 1
@@ -22,8 +33,8 @@ export const useFilterData = () => {
         filters.modality === 'all'
           ? true
           : filters.modality === 'with-excess'
-          ? product.excess !== 0
-          : product.excess === 0;
+            ? product.excess !== 0
+            : product.excess === 0;
 
       return (
         minPriceCondition &&
@@ -33,5 +44,6 @@ export const useFilterData = () => {
       );
     });
   };
+
   return { filters, filterProducts, setFilters, sort, setSort };
 };

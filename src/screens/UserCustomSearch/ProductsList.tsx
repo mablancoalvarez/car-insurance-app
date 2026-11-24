@@ -1,5 +1,7 @@
 import ProductDetail from './ProductDetail';
-const ProductList = ({ products }) => {
+import type { Product } from '../../types';
+
+const ProductList = ({ products }: { products: Product[] }) => {
   return (
     <ul>
       {products.map((product) => (

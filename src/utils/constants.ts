@@ -1,0 +1,1 @@
+export const MIN_PRODUCT_TO_COMPARE = 2;

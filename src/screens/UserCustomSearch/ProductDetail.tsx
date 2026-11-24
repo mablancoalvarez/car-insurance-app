@@ -1,5 +1,7 @@
 import { formatNumber } from '../../utils/helpers';
-const ProductDetail = ({ product }) => {
+import type { Product } from '../../types';
+
+const ProductDetail = ({ product }: { product: Product }) => {
   const customStyle = product.final_price === 0 ? 'not-final-price' : '';
 
   return (
@@ -38,4 +40,5 @@ const ProductDetail = ({ product }) => {
     </div>
   );
 };
+
 export default ProductDetail;
