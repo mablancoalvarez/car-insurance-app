@@ -10,8 +10,8 @@ const SortableComponent = () => {
   return (
     <div className="sort">
       <button onClick={handleSort}>
-        <span>Order by price</span>
-        <span>{sort === 'asc' ? 'Ascendent ▲' : 'Descendent ▼'}</span>
+        <span>Ordenar por precio</span>
+        <span>{sort === 'asc' ? 'Ascendente ▲' : 'Descendente ▼'}</span>
       </button>
     </div>
   );

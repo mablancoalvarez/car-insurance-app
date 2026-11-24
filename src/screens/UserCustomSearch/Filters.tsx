@@ -47,11 +47,11 @@ const Filters = () => {
 
   return (
     <aside className="filters">
-      <h3 className="filters-title">Filters</h3>
-      <p className="filters-desc">Customize your search</p>
+      <h3 className="filters-title">Filtros</h3>
+      <p className="filters-desc">Acotan lo que lee el asistente</p>
       <div className="filters-container">
         <div className="filters-final-price">
-          <p className="filters-final-price-title"> Has final price</p>
+          <p className="filters-final-price-title">Precio final</p>
           <Switch
             id={idFinalPrice}
             name="finalPrice"
@@ -64,7 +64,7 @@ const Filters = () => {
 
         <div className="filters-modality">
           <label className="filters-modality-title" htmlFor={idModality}>
-            MODALITY
+            Modalidad
           </label>
           <select
             value={filters.modality}
@@ -72,17 +72,17 @@ const Filters = () => {
             id={idModality}
             onChange={handleFilter}
           >
-            <option value="all">--Please choose an option--</option>
-            <option value="with-excess">With excess</option>
-            <option value="without-excess">Without excess</option>
+            <option value="all">Todas</option>
+            <option value="with-excess">Con franquicia</option>
+            <option value="without-excess">Sin franquicia</option>
           </select>
         </div>
         <div className="filters-price">
-          <p className="filters-price-title">PRICE</p>
+          <p className="filters-price-title">Precio</p>
           <div className="filters-price-container">
             <div>
               <label htmlFor={idMinPrice} className="minPrice">
-                Minimum Price
+                Mínimo
               </label>
               <input
                 id={idMinPrice}
@@ -94,7 +94,7 @@ const Filters = () => {
             </div>
             <div>
               <label htmlFor={idMaxPrice} className="maxPrice">
-                Maximum Price
+                Máximo
               </label>
               <input
                 id={idMaxPrice}
@@ -109,7 +109,7 @@ const Filters = () => {
       </div>
 
       <button className="clear-filters" onClick={onClearFilters}>
-        Clear Filters
+        Limpiar filtros
       </button>
     </aside>
   );

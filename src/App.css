@@ -219,6 +219,81 @@ input:checked + .slider:before {
   }
 }
 
+.ai-shell .container {
+  grid-template-columns: 260px minmax(0, 1fr);
+  align-items: start;
+}
+
+.ai-shell .product {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr) minmax(120px, 0.9fr);
+}
+
+.ai-shell .product_features li {
+  font-size: 16px;
+}
+
+.ai-shell .sort button {
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ai-shell .filters {
+  color: #f3ecdf;
+  border-right-color: rgba(243, 236, 223, 0.12);
+}
+
+.ai-shell .filters-title,
+.ai-shell .filters-final-price-title,
+.ai-shell .filters-modality-title,
+.ai-shell .filters-price-title,
+.ai-shell .minPrice,
+.ai-shell .maxPrice,
+.ai-shell .product,
+.ai-shell .product_modality,
+.ai-shell .product_features li,
+.ai-shell .comparison-tariffs-action-label,
+.ai-shell .tariff {
+  color: #f3ecdf;
+}
+
+.ai-shell .filters-desc {
+  color: rgba(243, 236, 223, 0.62);
+}
+
+.ai-shell .filters-container > *,
+.ai-shell .product,
+.ai-shell .tariff {
+  background: rgba(243, 236, 223, 0.04);
+  border-color: rgba(243, 236, 223, 0.12);
+}
+
+.ai-shell .product_grade > * {
+  background: rgba(243, 236, 223, 0.06);
+}
+
+.ai-shell .filters-final-price {
+  width: auto;
+}
+
+.ai-shell select,
+.ai-shell input,
+.ai-shell .clear-filters,
+.ai-shell .sort button {
+  background: transparent;
+  color: #f3ecdf;
+  border-color: rgba(243, 236, 223, 0.24);
+}
+
+.ai-shell .sort button {
+  width: 100%;
+}
+
+.ai-loading {
+  padding: 20vh 8vw;
+  font-family: Newsreader, Georgia, serif;
+  font-size: 48px;
+}
+
 .tariff {
   background-color: #F8FAFC;
   padding: 24px;
