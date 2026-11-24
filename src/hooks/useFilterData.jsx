@@ -2,7 +2,11 @@ import { useContext } from 'react';
 import { FiltersContext } from '../context/DataContext';
 
 export const useFilterData = () => {
-  const { filters, setFilters } = useContext(FiltersContext);
+  const context = useContext(FiltersContext);
+  if (!context) {
+    throw new Error('useFilterData must be used within FiltersProvider');
+  }
+  const { filters, setFilters, sort, setSort } = context;
 
   const filterProducts = (products) => {
     return products?.filter((product) => {
@@ -29,5 +33,5 @@ export const useFilterData = () => {
       );
     });
   };
-  return { filters, filterProducts, setFilters };
+  return { filters, filterProducts, setFilters, sort, setSort };
 };

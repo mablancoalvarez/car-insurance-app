@@ -1,13 +1,10 @@
-import { useState, useContext } from 'react';
-import { FiltersContext } from '../../context/DataContext.jsx';
+import { useFilterData } from '../../hooks/useFilterData.jsx';
 
 const SortableComponent = () => {
-  const { sort, setSort } = useContext(FiltersContext);
-  const [ascending, setAscending] = useState(true);
+  const { sort, setSort } = useFilterData();
 
   const handleSort = () => {
-    setAscending(!ascending);
-    setSort(!ascending ? 'asc' : 'desc');
+    setSort(sort === 'asc' ? 'desc' : 'asc');
   };
 
   return (

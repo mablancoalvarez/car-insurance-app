@@ -10,8 +10,8 @@ const ProductDetail = ({ product }) => {
       </div>
       <div className="product_features">
         <ul>
-          {product.features.map((feature, index) => (
-            <li key={index}>{feature.description}</li>
+          {product.features.map((feature) => (
+            <li key={feature.description}>{feature.description}</li>
           ))}
         </ul>
       </div>

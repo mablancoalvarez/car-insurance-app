@@ -1,46 +1,31 @@
 import { useState } from 'react';
-import { compareObjects, compareProperty } from './helpers';
+import { diffTariffs } from './helpers';
 import TariffDetails from './TariffDetails';
 import Switch from '../../../components/Ui/Switch';
 
 const ComparisonTariff = ({ products }) => {
-  if (!products || products.length < 0) return null;
   const [showDifferences, setShowDifferences] = useState(false);
 
-  const tariff1 = products[0];
-  const tariff2 = products[1];
+  if (!products || products.length < 2) return null;
 
-  const handleCheckboxClick = () => {
-    setShowDifferences(!showDifferences);
-  };
-  const getDifferences = (obj1, obj2) => {
-    const differences1 = { ...obj1 };
-    const differences2 = { ...obj2 };
-
-    compareObjects(obj1, obj2, differences1, differences2);
-    compareProperty('modality', obj1, obj2, differences1, differences2);
-    compareProperty('features', obj1, obj2, differences1, differences2);
-
-    return [differences1, differences2];
-  };
-
-  const [differencesTariff1, differencesTariff2] = getDifferences(
+  const [tariff1, tariff2] = products;
+  const [differencesTariff1, differencesTariff2] = diffTariffs(
     tariff1,
     tariff2
   );
   const resultTariff1 = showDifferences ? differencesTariff1 : tariff1;
   const resultTariff2 = showDifferences ? differencesTariff2 : tariff2;
-  console.log('--->', resultTariff1, resultTariff2);
-  console.log('showDifferences', showDifferences);
+
   return (
     <div className="comparison">
       <div className="comparison-tariffs-action">
         <Switch
-          onChange={handleCheckboxClick}
+          onChange={() => setShowDifferences((current) => !current)}
           id="checkbox"
           name="differences"
+          checked={showDifferences}
         />
-        <label className="comparison-tariffs-action-label">
+        <label className="comparison-tariffs-action-label" htmlFor="checkbox">
           Show only differences
         </label>
       </div>
